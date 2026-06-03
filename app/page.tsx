@@ -50,14 +50,17 @@ export default function Page() {
   return (
     <div className="wrap">
       <div className="topbar">
-        <div className="brand"><b>GOLAZO<span className="dot">.</span></b><span className="basechip">on Base</span></div>
+        <div className="brand">
+          <img src="/icon.svg" alt="GOLAZO" style={{ width: 32, height: 32, borderRadius: 8 }} />
+          <b>GOLAZO<span className="dot">.</span></b><span className="basechip">on Base</span>
+        </div>
         {username && <div className="addr"><span className="av" />{username}</div>}
       </div>
 
       <div className="scroll">
         {view === "connect" && (
           <div className="hero">
-            <div className="crest">🏆</div>
+            <div className="crest"><img src="/icon.svg" alt="GOLAZO" style={{ width: 96, height: 96, borderRadius: 20 }} /></div>
             <div className="eyebrow" style={{ marginTop: 18 }}>World Cup 2026 · Pick'em</div>
             <h1 className="h1" style={{ fontSize: 62 }}>PICK<br />EVERY<br />MATCH.</h1>
             <p className="muted">Predict World Cup 2026 group matches — win, draw or loss. Lock your slip onchain. Free to enter.</p>
@@ -66,9 +69,13 @@ export default function Page() {
               <div className="stat"><div className="n acc">12</div><div className="l">groups · A–L</div></div>
               <div className="stat"><div className="n lime">FREE</div><div className="l">gas-only entry</div></div>
             </div>
-            <button className="btn" onClick={() => connectors[0] && connect({ connector: connectors[0] })}>
-              Connect &amp; play
-            </button>
+            <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%" }}>
+              {connectors.map((c) => (
+                <button key={c.id} className="btn" onClick={() => connect({ connector: c })}>
+                  {c.name === "Injected" ? "MetaMask / Browser Wallet" : c.name} — Connect &amp; play
+                </button>
+              ))}
+            </div>
           </div>
         )}
 

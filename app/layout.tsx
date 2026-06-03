@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Providers } from "./providers";
-import "./globals.css"; // paste the prototype's CSS here (from golazo-miniapp.html)
+import "./globals.css";
 
 // The fc:frame metadata makes the app launchable as a Mini App / Frame.
 export async function generateMetadata(): Promise<Metadata> {
@@ -8,6 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "GOLAZO — World Cup 2026 Pick'em",
     description: "Predict every World Cup 2026 match onchain on Base.",
+    icons: { icon: "/icon.svg" },
     other: {
       "fc:frame": JSON.stringify({
         version: "next",

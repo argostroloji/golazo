@@ -9,7 +9,7 @@ const chipBg: Record<Pick, string> = { "1": "var(--lime)", X: "var(--amber)", "2
 
 export function MyVote({ me }: { me?: `0x${string}` }) {
   const { composeCast } = useComposeCast();
-  const url = process.env.NEXT_PUBLIC_URL ?? "https://golazo.xyz";
+  const url = process.env.NEXT_PUBLIC_URL ?? "https://worldcup.cards";
 
   const { data: isRegistered, isLoading: loadingReg } = useReadContract({
     address: CONTRACT_ADDRESS, abi: ABI, functionName: "registered",

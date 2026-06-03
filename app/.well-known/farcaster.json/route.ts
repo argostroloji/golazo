@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 
 export async function GET() {
-  const appUrl = process.env.NEXT_PUBLIC_URL || 'https://golazo-alpha.vercel.app';
+  const appUrl = process.env.NEXT_PUBLIC_URL || 'https://worldcup.cards';
 
   const config = {
     accountAssociation: {
@@ -11,7 +11,7 @@ export async function GET() {
     },
     frame: {
       version: '1',
-      name: 'GOLAZO',
+      name: 'Worldcup Cards',
       iconUrl: process.env.NEXT_PUBLIC_ICON_URL || `${appUrl}/icon.png`,
       homeUrl: appUrl,
       imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE || `${appUrl}/icon.png`,

@@ -15,7 +15,7 @@ const wagmiConfig = createConfig({
   chains: [base, baseSepolia],
   connectors: [
     farcasterFrame(),
-    coinbaseWallet({ appName: "GOLAZO" }),
+    coinbaseWallet({ appName: "Worldcup Cards" }),
     injected(),
   ],
   transports: {
@@ -35,7 +35,7 @@ export function Providers({ children }: { children: ReactNode }) {
             appearance: {
               mode: "auto",
               theme: "snake",
-              name: "GOLAZO",
+              name: "Worldcup Cards",
               logo: process.env.NEXT_PUBLIC_ICON_URL,
             },
           }}

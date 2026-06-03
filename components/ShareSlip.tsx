@@ -5,7 +5,7 @@ import { useComposeCast } from "@coinbase/onchainkit/minikit";
 // ready caption and your app embed (which renders your dynamic OG slip image).
 export function ShareSlip({ count }: { count: number }) {
   const { composeCast } = useComposeCast();
-  const url = process.env.NEXT_PUBLIC_URL ?? "https://golazo.xyz";
+  const url = process.env.NEXT_PUBLIC_URL ?? "https://worldcup.cards";
   const text =
     `I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\n` +
     `Think you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\n` +

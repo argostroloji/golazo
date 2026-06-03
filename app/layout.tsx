@@ -6,7 +6,7 @@ import "./globals.css";
 export async function generateMetadata(): Promise<Metadata> {
   const URL = process.env.NEXT_PUBLIC_URL!;
   return {
-    title: "GOLAZO — World Cup 2026 Pick'em",
+    title: "Worldcup Cards — World Cup 2026 Pick'em",
     description: "Predict every World Cup 2026 match onchain on Base.",
     icons: { icon: "/icon.svg" },
     other: {
@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
           title: "Make your picks",
           action: {
             type: "launch_frame",
-            name: "GOLAZO",
+            name: "Worldcup Cards",
             url: URL,
             splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE,
             splashBackgroundColor: process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR,

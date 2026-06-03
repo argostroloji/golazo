@@ -74,8 +74,8 @@ export default function Page() {
     <div className="wrap">
       <div className="topbar">
         <div className="brand">
-          <img src="/icon.svg" alt="GOLAZO" style={{ width: 32, height: 32, borderRadius: 8 }} />
-          <b>GOLAZO<span className="dot">.</span></b><span className="basechip">on Base</span>
+          <img src="/icon.svg" alt="Worldcup Cards" style={{ width: 32, height: 32, borderRadius: 8 }} />
+          <b>Worldcup Cards<span className="dot">.</span></b><span className="basechip">on Base</span>
         </div>
         {username && <div className="addr"><span className="av" />{username}</div>}
       </div>
@@ -83,7 +83,7 @@ export default function Page() {
       <div className="scroll">
         {view === "connect" && (
           <div className="hero">
-            <div className="crest"><img src="/icon.svg" alt="GOLAZO" style={{ width: 96, height: 96, borderRadius: 20 }} /></div>
+            <div className="crest"><img src="/icon.svg" alt="Worldcup Cards" style={{ width: 96, height: 96, borderRadius: 20 }} /></div>
             <div className="eyebrow" style={{ marginTop: 18 }}>World Cup 2026 · Pick&apos;em</div>
             <h1 className="h1" style={{ fontSize: 62 }}>PICK<br />EVERY<br />MATCH.</h1>
             <p className="muted">Predict World Cup 2026 group matches — win, draw or loss. Lock your slip onchain. Free to enter.</p>
@@ -210,7 +210,7 @@ export default function Page() {
             <div className="shareRow">
               <ShareSlip count={count} />
               <a className="sbtn x" target="_blank" rel="noopener"
-                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\nThink you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\nPlay for FREE on Base now! 👇 $GOLAZO`)}&url=${encodeURIComponent(process.env.NEXT_PUBLIC_URL || "https://golazo.xyz")}`}>
+                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\nThink you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\nPlay for FREE on Base now! 👇 $GOLAZO`)}&url=${encodeURIComponent(process.env.NEXT_PUBLIC_URL || "https://worldcup.cards")}`}>
                 Post on X
               </a>
             </div>

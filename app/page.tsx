@@ -22,7 +22,15 @@ export default function Page() {
 
   useEffect(() => { if (!isFrameReady) setFrameReady(); }, [isFrameReady, setFrameReady]);
   // Inside Farcaster / Base App: context appears immediately → skip connect screen.
-  useEffect(() => { if (context && view === "connect") setView("predict"); }, [context, view]);
+  useEffect(() => { 
+    if (context && view === "connect") {
+      setView("predict");
+      if (!isConnected) {
+        const injected = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected')) || connectors[0];
+        if (injected) connect({ connector: injected });
+      }
+    }
+  }, [context, view, isConnected, connect, connectors]);
   // Fallback: wallet auto-connects in MiniKit environment.
   useEffect(() => { if (isConnected && view === "connect") setView("predict"); }, [isConnected, view]);
 

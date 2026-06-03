@@ -8,7 +8,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: "Worldcup Cards — World Cup 2026 Pick'em",
     description: "Predict every World Cup 2026 match onchain on Base.",
-    icons: { icon: "/icon.svg" },
+    icons: { icon: "/icon.png" },
     other: {
       "fc:frame": JSON.stringify({
         version: "next",

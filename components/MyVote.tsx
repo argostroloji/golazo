@@ -43,7 +43,7 @@ export function MyVote({ me }: { me?: `0x${string}` }) {
   const shareText =
     `I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\n` +
     `Think you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\n` +
-    `Play for FREE on Base now! 👇 $GOLAZO`;
+    `Play for FREE on Base now! 👇 $WCARDS`;
 
   const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`;
 

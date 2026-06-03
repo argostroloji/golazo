@@ -9,7 +9,7 @@ export function ShareSlip({ count }: { count: number }) {
   const text =
     `I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\n` +
     `Think you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\n` +
-    `Play for FREE on Base now! 👇 $GOLAZO`;
+    `Play for FREE on Base now! 👇 $WCARDS`;
 
   return (
     <button className="sbtn fc" onClick={() => composeCast({ text, embeds: [url] })}>

@@ -21,10 +21,10 @@ export function RegisterButton({
 
   function submit() {
     if (!isConnected) {
-      const injected = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected')) || connectors[0];
-      if (injected) {
-        connect({ connector: injected });
-      }
+      const fc = connectors.find(c => c.id === 'farcaster');
+      const inj = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected'));
+      const connector = fc || inj || connectors[0];
+      if (connector) connect({ connector });
       return;
     }
 

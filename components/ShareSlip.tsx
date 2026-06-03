@@ -7,8 +7,9 @@ export function ShareSlip({ count }: { count: number }) {
   const { composeCast } = useComposeCast();
   const url = process.env.NEXT_PUBLIC_URL ?? "https://golazo.xyz";
   const text =
-    `I just locked ${count} World Cup 2026 pick${count > 1 ? "s" : ""} onchain with GOLAZO \u26bd\n` +
-    `Think you can beat my slip? Predict free on Base \ud83d\udc47`;
+    `I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\n` +
+    `Think you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\n` +
+    `Play for FREE on Base now! 👇 $GOLAZO`;
 
   return (
     <button className="sbtn fc" onClick={() => composeCast({ text, embeds: [url] })}>

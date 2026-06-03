@@ -2,12 +2,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useMiniKit } from "@coinbase/onchainkit/minikit";
 import { useAccount, useConnect } from "wagmi";
+import sdk from "@farcaster/frame-sdk";
 import { GROUPS, MATCHES, TOTAL, type Pick } from "@/lib/worldcup";
 import { RegisterButton } from "@/components/RegisterButton";
 import { ShareSlip } from "@/components/ShareSlip";
 import { Leaderboard } from "@/components/Leaderboard";
+import { MyVote } from "@/components/MyVote";
 
-type View = "connect" | "predict" | "review" | "success" | "leaderboard";
+type View = "connect" | "predict" | "review" | "success" | "leaderboard" | "mypicks";
 const flag = (c: string) => `https://flagcdn.com/${c}.svg`;
 const chipBg: Record<Pick, string> = { "1": "var(--lime)", X: "var(--amber)", "2": "var(--acc)" };
 
@@ -21,18 +23,29 @@ export default function Page() {
   const [picks, setPicks] = useState<Record<number, Pick>>({});
 
   useEffect(() => { if (!isFrameReady) setFrameReady(); }, [isFrameReady, setFrameReady]);
+  useEffect(() => {
+    try { sdk.actions.ready(); } catch (e) {}
+  }, []);
   // Inside Farcaster / Base App: context appears immediately → skip connect screen.
   useEffect(() => { 
     if (context && view === "connect") {
-      setView("predict");
+      const t = setTimeout(() => setView("predict"), 0);
       if (!isConnected) {
-        const injected = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected')) || connectors[0];
-        if (injected) connect({ connector: injected });
+        const fc = connectors.find(c => c.id === 'farcaster');
+        const inj = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected'));
+        const connector = fc || inj || connectors[0];
+        if (connector) connect({ connector });
       }
+      return () => clearTimeout(t);
     }
   }, [context, view, isConnected, connect, connectors]);
   // Fallback: wallet auto-connects in MiniKit environment.
-  useEffect(() => { if (isConnected && view === "connect") setView("predict"); }, [isConnected, view]);
+  useEffect(() => {
+    if (isConnected && view === "connect") {
+      const t = setTimeout(() => setView("predict"), 0);
+      return () => clearTimeout(t);
+    }
+  }, [isConnected, view]);
 
   const count = Object.keys(picks).length;
   const progress = Math.round((count / TOTAL) * 100);
@@ -71,7 +84,7 @@ export default function Page() {
         {view === "connect" && (
           <div className="hero">
             <div className="crest"><img src="/icon.svg" alt="GOLAZO" style={{ width: 96, height: 96, borderRadius: 20 }} /></div>
-            <div className="eyebrow" style={{ marginTop: 18 }}>World Cup 2026 · Pick'em</div>
+            <div className="eyebrow" style={{ marginTop: 18 }}>World Cup 2026 · Pick&apos;em</div>
             <h1 className="h1" style={{ fontSize: 62 }}>PICK<br />EVERY<br />MATCH.</h1>
             <p className="muted">Predict World Cup 2026 group matches — win, draw or loss. Lock your slip onchain. Free to enter.</p>
             <div className="statline">
@@ -197,7 +210,7 @@ export default function Page() {
             <div className="shareRow">
               <ShareSlip count={count} />
               <a className="sbtn x" target="_blank" rel="noopener"
-                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just locked ${count} World Cup 2026 picks onchain with GOLAZO ⚽ Predict free on Base 👇`)}&url=${encodeURIComponent(process.env.NEXT_PUBLIC_URL || "https://golazo.xyz")}`}>
+                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\nThink you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\nPlay for FREE on Base now! 👇 $GOLAZO`)}&url=${encodeURIComponent(process.env.NEXT_PUBLIC_URL || "https://golazo.xyz")}`}>
                 Post on X
               </a>
             </div>
@@ -215,11 +228,22 @@ export default function Page() {
             <div style={{ height: 16 }} />
           </>
         )}
+
+        {view === "mypicks" && (
+          <>
+            <div className="lbhead"><div><div className="eyebrow">Your Selections</div>
+              <h1 className="h1" style={{ fontSize: 30 }}>MY VOTE</h1></div>
+              <div className="phasetag">Group stage</div></div>
+            <MyVote me={address} />
+            <div style={{ height: 16 }} />
+          </>
+        )}
       </div>
 
       {isConnected && view !== "connect" && (
         <div className="nav">
           <button className={view === "predict" || view === "review" ? "on" : ""} onClick={() => setView("predict")}><span className="ic">◎</span>Predict</button>
+          <button className={view === "mypicks" ? "on" : ""} onClick={() => setView("mypicks")}><span className="ic">★</span>My Vote</button>
           <button className={view === "leaderboard" ? "on" : ""} onClick={() => setView("leaderboard")}><span className="ic">♚</span>Leaderboard</button>
         </div>
       )}

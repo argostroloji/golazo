@@ -12,11 +12,11 @@ export async function GET() {
     frame: {
       version: '1',
       name: 'GOLAZO',
-      iconUrl: process.env.NEXT_PUBLIC_ICON_URL || `${appUrl}/icon.svg`,
+      iconUrl: process.env.NEXT_PUBLIC_ICON_URL || `${appUrl}/icon.png`,
       homeUrl: appUrl,
-      imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE || `${appUrl}/icon.svg`,
+      imageUrl: process.env.NEXT_PUBLIC_APP_HERO_IMAGE || `${appUrl}/icon.png`,
       buttonTitle: 'Make your picks',
-      splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE || `${appUrl}/icon.svg`,
+      splashImageUrl: process.env.NEXT_PUBLIC_SPLASH_IMAGE || `${appUrl}/icon.png`,
       splashBackgroundColor: process.env.NEXT_PUBLIC_SPLASH_BACKGROUND_COLOR || '#0a0b0d',
     },
   };

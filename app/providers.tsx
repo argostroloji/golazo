@@ -2,6 +2,7 @@
 import { ReactNode } from "react";
 import { OnchainKitProvider } from "@coinbase/onchainkit";
 import { CHAIN } from "@/lib/contract";
+import { base, baseSepolia } from "viem/chains";
 
 import { WagmiProvider, createConfig, http } from "wagmi";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -11,14 +12,15 @@ import farcasterFrame from "@farcaster/frame-wagmi-connector";
 const queryClient = new QueryClient();
 
 const wagmiConfig = createConfig({
-  chains: [CHAIN],
+  chains: [base, baseSepolia],
   connectors: [
     farcasterFrame(),
     coinbaseWallet({ appName: "GOLAZO" }),
     injected(),
   ],
   transports: {
-    [CHAIN.id]: http(),
+    [base.id]: http(),
+    [baseSepolia.id]: http(),
   },
 });
 

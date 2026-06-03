@@ -1,5 +1,6 @@
 "use client";
 import { useReadContract } from "wagmi";
+import { useComposeCast } from "@coinbase/onchainkit/minikit";
 import { ABI, CONTRACT_ADDRESS, CHAIN } from "@/lib/contract";
 import { MATCHES, type Pick } from "@/lib/worldcup";
 
@@ -7,6 +8,9 @@ const flag = (c: string) => `https://flagcdn.com/${c}.svg`;
 const chipBg: Record<Pick, string> = { "1": "var(--lime)", X: "var(--amber)", "2": "var(--acc)" };
 
 export function MyVote({ me }: { me?: `0x${string}` }) {
+  const { composeCast } = useComposeCast();
+  const url = process.env.NEXT_PUBLIC_URL ?? "https://golazo.xyz";
+
   const { data: isRegistered, isLoading: loadingReg } = useReadContract({
     address: CONTRACT_ADDRESS, abi: ABI, functionName: "registered",
     args: me ? [me] : undefined, query: { enabled: !!me }, chainId: CHAIN.id,
@@ -36,6 +40,13 @@ export function MyVote({ me }: { me?: `0x${string}` }) {
 
   if (count === 0) return <p className="muted">You registered but have no picks.</p>;
 
+  const shareText =
+    `I just locked in ${count} pick${count === 1 ? "" : "s"} for the World Cup 2026 onchain! 🏆⚽\n\n` +
+    `Think you know football better than me? Show your skills, challenge my slip, and climb the leaderboard! 🥇\n\n` +
+    `Play for FREE on Base now! 👇 $GOLAZO`;
+
+  const twitterHref = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}`;
+
   return (
     <div className="slip" style={{ padding: 16, textAlign: "left", margin: "10px 0" }}>
       <div className="eyebrow">Your locked slip</div>
@@ -57,6 +68,16 @@ export function MyVote({ me }: { me?: `0x${string}` }) {
           </div>
         );
       })}
+
+      <div className="shareRow" style={{ marginTop: 16 }}>
+        <button className="sbtn fc" onClick={() => composeCast({ text: shareText, embeds: [url] })}>
+          Cast my slip
+        </button>
+        <a className="sbtn x" target="_blank" rel="noopener" href={twitterHref}>
+          Post on X
+        </a>
+      </div>
     </div>
   );
 }
+

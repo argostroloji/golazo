@@ -5,9 +5,9 @@ export async function GET() {
 
   const config = {
     accountAssociation: {
-      header: process.env.FARCASTER_HEADER || '',
-      payload: process.env.FARCASTER_PAYLOAD || '',
-      signature: process.env.FARCASTER_SIGNATURE || '',
+      header: process.env.FARCASTER_HEADER || 'eyJmaWQiOjQ1NzQxNiwidHlwZSI6ImF1dGgiLCJrZXkiOiIweEIzZTM3YTZGOENDNzIyRjlCQzk2MDA0NUUyNTNkODkyODVEMjkzMDYifQ',
+      payload: process.env.FARCASTER_PAYLOAD || 'eyJkb21haW4iOiJnb2xhem8tYWxwaGEudmVyY2VsLmFwcCJ9',
+      signature: process.env.FARCASTER_SIGNATURE || 'WUwEzn5nxvjeUIyD+8dFKRBfJB4n7ON/jTIR9B3+6ZxSE0YmR7Dh6Cgsjvg5J/JIvi5JID5G7T2XJL2rmMexdBw=',
     },
     frame: {
       version: '1',

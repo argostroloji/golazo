@@ -160,7 +160,7 @@ export default function Page() {
           <div className="successwrap">
             <div className="check"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="#0a0b0d" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></svg></div>
             <div className="eyebrow">Confirmed on Base</div>
-            <h1 className="h1" style={{ fontSize: 36, marginTop: 8 }}>YOU'RE IN.</h1>
+            <h1 className="h1" style={{ fontSize: 36, marginTop: 8 }}>YOU&apos;RE IN.</h1>
             <p className="muted" style={{ margin: "12px auto 4px", maxWidth: 310, fontSize: 14.5 }}>
               {count} pick{count > 1 ? "s" : ""} locked onchain. Share your slip and challenge your friends.
             </p>

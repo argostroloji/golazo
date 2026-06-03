@@ -1,5 +1,5 @@
 "use client";
-import { useWriteContract, useWaitForTransactionReceipt } from "wagmi";
+import { useWriteContract, useWaitForTransactionReceipt, useAccount, useConnect } from "wagmi";
 import { ABI, CONTRACT_ADDRESS } from "@/lib/contract";
 import { encodePicks, type Pick } from "@/lib/worldcup";
 
@@ -12,22 +12,34 @@ export function RegisterButton({
   picks: Record<number, Pick>;
   onConfirmed?: (hash: `0x${string}`) => void;
 }) {
+  const { isConnected } = useAccount();
+  const { connect, connectors } = useConnect();
   const { writeContract, data: hash, isPending, error } = useWriteContract();
   const { isLoading: confirming, isSuccess } = useWaitForTransactionReceipt({ hash });
 
   const count = Object.keys(picks).length;
 
   function submit() {
+    if (!isConnected) {
+      const injected = connectors.find(c => c.id === 'injected' || c.type === 'injected' || c.name.toLowerCase().includes('injected')) || connectors[0];
+      if (injected) {
+        connect({ connector: injected });
+      }
+      return;
+    }
+
     writeContract({
       address: CONTRACT_ADDRESS,
       abi: ABI,
       functionName: "registerAndPredict",
-      args: [encodePicks(picks)], // uint8[72], 0 = unpicked
+      args: [encodePicks(picks)],
     });
   }
 
   if (isSuccess) {
-    hash && onConfirmed?.(hash);
+    if (hash && onConfirmed) {
+      onConfirmed(hash);
+    }
     return <p className="ok">Your picks are locked onchain ✓</p>;
   }
 
@@ -38,7 +50,9 @@ export function RegisterButton({
         disabled={count < 1 || isPending || confirming}
         onClick={submit}
       >
-        {isPending || confirming
+        {!isConnected 
+          ? "Connect Wallet to Lock"
+          : isPending || confirming
           ? "Confirming…"
           : count < 1
           ? "Make at least one pick"

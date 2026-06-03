@@ -14,7 +14,7 @@ export function MyVote({ me }: { me?: `0x${string}` }) {
 
   const { data: predsRaw, isLoading: loadingPreds } = useReadContract({
     address: CONTRACT_ADDRESS, abi: ABI, functionName: "getPredictions",
-    args: me ? [0n, me] : undefined, query: { enabled: !!me && !!isRegistered }, chainId: CHAIN.id,
+    args: me ? [BigInt(0), me] : undefined, query: { enabled: !!me && !!isRegistered }, chainId: CHAIN.id,
   });
 
   if (loadingReg || loadingPreds) return <p className="muted">Loading your vote…</p>;

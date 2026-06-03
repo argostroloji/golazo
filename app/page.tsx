@@ -21,7 +21,9 @@ export default function Page() {
   const [picks, setPicks] = useState<Record<number, Pick>>({});
 
   useEffect(() => { if (!isFrameReady) setFrameReady(); }, [isFrameReady, setFrameReady]);
-  // In-client the wallet auto-connects — skip the connect screen when it does.
+  // Inside Farcaster / Base App: context appears immediately → skip connect screen.
+  useEffect(() => { if (context && view === "connect") setView("predict"); }, [context, view]);
+  // Fallback: wallet auto-connects in MiniKit environment.
   useEffect(() => { if (isConnected && view === "connect") setView("predict"); }, [isConnected, view]);
 
   const count = Object.keys(picks).length;
